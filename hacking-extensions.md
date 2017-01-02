@@ -61,3 +61,5 @@ That's it; you're up and running!
 From here, explore the contents of the `manifest.json` file. Every extension you encounter will have one of these, and many of the properties within are **required** for the extension to work.
 
 Be sure to bookmark, and explore, the [Web Extensions documentation](https://developer.mozilla.org/en-US/Add-ons/WebExtensions) on the Mozilla Developer Network. Note that some subtle differences will exist between various browsers, but you can more easily spot those now that you have access to an _already working_ extension.
+
+Download [attachments/Tabby Cat Plus.zip](attachments/Tabby+Cat+Plus.zip).

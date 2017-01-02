@@ -1,6 +1,6 @@
 # Timers in Brave
 
-Brave contains numerous timers, configured to perform regular actions at predetermined intervals. This document seeks to enumerate these timers, their intervals, and their purpose.
+Brave contains numerous timers, configured to perform regular actions at predetermined intervals. This document seeks to enumerate those timers, their intervals, and their purpose.
 
 It's relatively easy to locate timers in the Brave source; two methods can be taken to seek them out. The first method is to simply lookup calls to `setInterval` and `setTimeout`.
 
@@ -28,3 +28,6 @@ Frequency: _Every second, on New Tab Page_
 A recent update to Brave brought users the _New Tab Page_. Among many helpful components on this page, the user is shown a small clock element. The _clock.js_ file contains a call to `setInterval` that keeps this clock element updated every second.
 
 ### js\webtorrent\entry.js
+
+Frequency: _Every second, on the Torrent UI Page_
+

@@ -52,11 +52,9 @@ In the following animation you'll see the CRX for Tabby Cat has been loaded. I'v
 
 ![Tabby Cat CRX in Hexed.it](media/clear-bytes.gif)
 
-With the extra CRX content removed from the file, I can now export my clearn ZIP, and get ready for extracting.
+With the extra CRX content removed from the file, I can now export my clean ZIP, and get ready for extracting.
 
-## Extracting our extension
-
-At this point, we will extract the contents of the ZIP into Brave's `app\extensions` directory. Initially, this directory should have a `brave` folder, as well as a `torrent` folder. Lets extract our ZIP into a `tabbycat` directory.
+Extract the contents of the ZIP into `app\extensions\tabbycat`. The `app\extensions` folder should now contain `brave`, `torrent`, and `tabbycat`.
 
 ## Registering and loading via app\extensions.js
 
@@ -80,50 +78,17 @@ loadExtension('tabbycat', getExtensionsPath('tabbycat'))
 
 These lines register and load our extension by its name, "`tabbycat`". The `getExtensionsPath` method accepts our extension's folder name. It will locate the `manifest.json` file within.
 
-<!--## Necessary modifications
-
-_This part of the document comes with an expiration date._
-
-Presently, Brave doesn't support all of the extension APIs and features you'll find in Chrome (though we are actively closing that gap). For now, however, some extensions may require a few minor changes before they'll work, and Tabby Cat is no exception.
-
-Befor we run Brave, and test Tabby Cat, we should make one small change to the `manifest.json` file.
-
-At the top, add `"permissions": []` to the object.
-
-```
-{
-    "update_url": "https://clients2.google.com/service/update2/crx",
-    "manifest_version": 2,
-```
-
-We should now have this:
-
-```
-{
-    "permissions": [],
-    "update_url": "https://clients2.google.com/service/update2/crx",
-    "manifest_version": 2,
-```
-
-The absensce of this property will currently cause problems for the `about:extensions` page in Brave. Don't worry, [we've filed an issue](https://github.com/brave/browser-laptop/issues/6533) :)-->
-
 ## Loading Brave
 
-Now that we've pulled down our extension, unpacked it, registered it, loaded it, and made any needed modifications, we are ready to run the development build of Brave.
+Now that we've pulled down our extension, unpacked it, registered it, loaded it, and made any necessary modifications, we are ready to run the development build of Brave.
 
 Start by opening two command windows from the `browser-laptop` directory. In your first window, run `npm install` (if you haven't already) to pull down all dependencies. This will take a few minutes.
 
 Once our dependencies are installed, run `npm run watch` from the same window and wait for the webpack dev server to launch. Finally, turn your focus to the second window, and run `npm start`. Within a few seconds, Brave will make its grand appearance on your screen.
 
-### Identify, File, and Fix!
+## Minor adjustments
 
-At this point, your extension may be working flawlessly, or it may not be working at all. In my case, with Tabby Cat, it isn't working; new tabs don't yield a kitten.
-
-I now have the genuine pleasure of identifying the problems, filing issues on GitHub, and helping the Brave team fix the root cause.
-
-I notice immediately that new tabs don't show any kittens. First step is to make sure the extension is loaded. I can do this by going to `about:extensions` in Brave.
-
-- New Tabs don't show a kitten. The issue here is with a lack of support for `chrome_url_overrides` in Brave.
+We mentioned briefly earlier in this article that Chrome and Brave won't necessarily have the same API coverage. While Brave will support many CHrome extensions _out of the box_, others may require a bit of finessing to work properly. As such, our next step is to identify what, if any, shortcomings our extension has, and address them.
 
 ## File Bugs and Discuss Efforts
 

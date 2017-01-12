@@ -1,64 +1,62 @@
 # Loading Chrome Extensions in Brave
 
-## What is Brave?
+## What is Brave
 
-Brave&mdash;the new ad-clobbering Browser from [Brendan Eich](https://twitter.com/brendaneich) (creator of JavaScript, co-founder of Mozilla)&mdash;burst onto the scene last year. Out of the box it blocks ads, trackers, [fingerprinting](https://en.wikipedia.org/wiki/Canvas_fingerprinting) and more.
+Brave appeared on the scene last year, and has quickly made a name for itself. Out of the box, Brave users enjoy fewer ads and trackers online. Brave also includes safety benefits like the prevention of fingerprinting and malware.
 
-For all that Brave does, it won't place random animated kittens on New Tabs&mdash;you'll need an extension for that. Fortunately, Brave was born out of the [Electron](http://electron.atom.io/) project (itself born out of the Chromium project), which means Brave and Chrome are not-too-distant cousins, and can share extensions.
+## What are its limitations
 
-In this walk-through, we're going to clone the Brave browser to our local machine, explore the process of loading extensions, and learn how we can use this knowledge to help Brave.
+Like all software, Brave has its limitations. For example, Brave doesn't delivery playful and adorable kittens each time I open a new tab. For that type of functionality, users tyipcally turn to browser extensions. Fortunately, Brave and Chrome share a common ancestor, and therefore have the capacity to share many of the same extensions.
 
-Because Brave is still a very new browser, support for extensions is experimental, but growing. By helping the Brave team explore your favorite extensions, support can be achieved more rapidly.
+## What are we going to do in this walkthrough?
 
-With this in mind, lets jump right in!
+In this walkthrough, we're going to clone Brave to our local machine, install its dependencies, download a Chrome extension, and load it into Brave. It is my goal that by the end of this document, you will be equipped to explore the same process with many other extensions, and help our team achieve broader support.
 
-## Getting Brave's Source Code
+## Cloning Brave and installing dependencies
 
-One of the great things about Brave is the fact that it's light-weight. Like most websites, it consists of HTML, CSS, and JavaScript files.
+Assuming you already have git, npm and nodejs installed, getting started with Brave is very straight-forward and quick. We'll start by cloning Brave's _browser-laptop_ repo onto our local machine.
 
-Assuming you have [node and npm](https://nodejs.org/) already installed, you can be up and running with Brave in [under 8 minutes](https://twitter.com/BraveSampson/status/816155347278761986). And I mean that. I timed it. Twice. For Science.
+Determine where you'd like to copy the Brave source code on your machine, and launch a command window from that directory. I will be working directly out of my `c:\` directory.
 
-Start by cloning the Brave project from GitHub:
+We'll continue by running the `clone` command from our target directory:
 
 > git clone https://github.com/brave/browser-laptop.git
 
-This will create a `browser-laptop` directory. Enter that directory, and `npm-install` dependencies:
+This step shouldn't take long. Once completed, we'll need install our dependencies.
 
-> cd browser-laptop
+> cd browser-laptop & npm install
 
-> npm install
+This will take a little longer than the cloning process, but shouldn't last for more than a few minutes. When our dependencies have been installed, we can take a quick break from this walk-through and enjoy the fruits of our labor.
 
-This step takes me about 7.5 minutes, consistently.
+Open two terminals, and run `npm run watch` from the first. This launches the WebPack developer server. Once the server has been stood up, switch your focus to the second terminal, and run `npm start`. Within a couple of moments, Brave should appear on your screen.
 
-## Downloading an extension without Chrome
+Take a break, and pat yourself on the back. You've made it this far!
 
-Downloading Chrome extensions usually means having to go into Chrome, navigate to the internal extensions resource page, click a link, find the extension, click a button, and then do half a dozen other things&mdash;that's too much work.
+## Downloading Chrome Extensions
 
-Extensions can be downloaded directly from clients2.google.com. Lets go ahead and download the Tabby Cat extension.
+Now that we have the source of Brave on our machine, and we're able to run it, we can continue. If you haven't already, close all instances of Brave, and close both terminal windows. It's time to download an extension.
 
-Tabby Cat has an ID of _mefhakmgclhhfbdadeojlkbllmecialg_, so the download URL is https://clients2.google.com/service/update2/crx?response=redirect&prodversion=55&x=id%3D<mark>mefhakmgclhhfbdadeojlkbllmecialg</mark>%26uc.
+Typically, downloading a Chrome extension means first installing the extension in Chrome. This alone requires several steps. Once that is finished, we have to go digging through our file system to find the install directory, and copy a handful of files. That's too much work; fortunately, we have a shortcut.
 
-## Converting the extension from a CRX to a ZIP
+Open a new terminal window from the `browser-laptop` directory, and run the following command. This performs a global install of the Chrome Extension Downloader (ced) module from npm. This module goes directly to Chrome's extension server, pulls down the packaged extension, and unpacks the archive.
 
-Chrome extensions come packaged as [CRX files](https://developer.chrome.com/extensions/crx). They're effectively ZIP archives, but with a little extra information before the content. For example, the first 4 bytes of a CRX represent the string "Cr24". The next 4 bytes tell us the CRX format number (usually `02 00 00 00`).
+> npm install -g chrome-ext-downloader
 
-In order to unpack the CRX, we'll need to strip away the meta information. Fortunately, there's a great browser-based [tool](https://johankj.github.io/convert-crx-to-zip/) you can use to do this conversion. Simply drag and drop the CRX onto the target, and download the resulting ZIP.
+Once installed, it's time to go and get our extension. We'll want to make sure we install the extension in `app\extensions\` directory:
 
-You may get a notification complaining that the ZIP is "invalid". This happens for me with *some* extensions. Not to worry, it's not difficult to work around. And on the plus side, I get to show you another neat tool!
+> cd app\extensions & ced mefhakmgclhhfbdadeojlkbllmecialg
 
-Hexed.it is an another awesome browser-based utility. It lets us open up a CRX, and view the individual bytes. With this utility, we can clearly see where the CTX headers end, the standard ZIP begins.
+The second command above calls _ced_, and asks it to download the Tabby Cat extension via the extension ID (mefhakmgclhhfbdadeojlkbllmecialg). Extension IDs can be found in the address bar when browsing the Chrome Web Store.
 
-In the following animation you'll see the CRX for Tabby Cat has been loaded. I've selected everything (566 bytes in this case) _up to_ the first instance of "PK" (which are the first two bytes of the ZIP), and deleted.
+![Locating an extension ID](media/chrome-web-store-extension-id.png)
 
-![Tabby Cat CRX in Hexed.it](media/clear-bytes.gif)
+For the purpose of brevity, and keeping things simple, I'm renaming the new folder to `tabbycat`.
 
-With the extra CRX content removed from the file, I can now export my clean ZIP, and get ready for extracting.
+## Registering and loading the extension
 
-Extract the contents of the ZIP into `app\extensions\tabbycat`. The `app\extensions` folder should now contain `brave`, `torrent`, and `tabbycat`.
+At this point, we should have at least three folders in our `app\extensions` directory: brave, torrent, and tabbycat.
 
-## Registering and loading via app\extensions.js
-
-With our extension unpacked, and in place, we now need it to be registered, and loaded. Open `app\extensions.js` and locate the following:
+We now need to instruct our development build of Brave to register and load the Tabby Cat extension on startup. To do this, we need to open the `app\extensions.js` file, and locate the following lines:
 
 ```
 // Manually install the braveExtension and torrentExtension
@@ -66,9 +64,7 @@ extensionInfo.setState(config.braveExtensionId, extensionStates.REGISTERED)
 loadExtension(config.braveExtensionId, getExtensionsPath('brave'), generateBraveManifest(), 'component')
 ```
 
-We're going to duplicate these, make a couple minor modifications, and bring our Tabby Cat extension to life.
-
-Beneath the lines seen above, lets add the following:
+Beneath these lines we need to isnert the following:
 
 ```
 // Enable Tabby Cat
@@ -76,23 +72,28 @@ extensionInfo.setState('tabbycat', extensionStates.REGISTERED)
 loadExtension('tabbycat', getExtensionsPath('tabbycat'))
 ```
 
-These lines register and load our extension by its name, "`tabbycat`". The `getExtensionsPath` method accepts our extension's folder name. It will locate the `manifest.json` file within.
+The first line is a simple comment for helping us find our way back if we ever get lost. The second line contains the `extensionInfo.setState` method, which we'll be using to register our extension. Lastly, the `loadExtension` method tells Brave where to look for Tabby Cat's `manifest.json` file.
 
-## Loading Brave
+## Testing and Troubleshooting
 
-Now that we've pulled down our extension, unpacked it, registered it, loaded it, and made any necessary modifications, we are ready to run the development build of Brave.
+It's time to run Brave again. Open two command windows, and place your cursor in the first, and run `npm run watch`. Wait for the WebPack developer server to finishing loading. Once loaded, place your cursor in the second command window and run `npm start`.
 
-Start by opening two command windows from the `browser-laptop` directory. In your first window, run `npm install` (if you haven't already) to pull down all dependencies. This will take a few minutes.
+Our first order of business is to confirm the extension has been loaded. We'll do this by navigating to the _about:extensions_ URL in Brave. We should see the extension listed among others.
 
-Once our dependencies are installed, run `npm run watch` from the same window and wait for the webpack dev server to launch. Finally, turn your focus to the second window, and run `npm start`. Within a few seconds, Brave will make its grand appearance on your screen.
+![Brave's About Extensions Page](media/about-extensions.png)
 
-## Minor adjustments
+_Disclaimer: At the time of this writing, the about:extensions page may not display anything at all. The reason for this can be quickly determined by pressing Ctrl+Shift+I, and inspecting the console output. Brave currently expects all `manifest.json` files to include a set of permissions. Tabby Cat does not contain a permissions array, which causes an error when the Array.prototype.join method is expected. [Pull Request #6581](https://github.com/brave/browser-laptop/pull/6581) will resolve this when it is merged into the master branch. A temporary work-around is to add `permissions: []` to the manifest._
 
-We mentioned briefly earlier in this article that Chrome and Brave won't necessarily have the same API coverage. While Brave will support many CHrome extensions _out of the box_, others may require a bit of finessing to work properly. As such, our next step is to identify what, if any, shortcomings our extension has, and address them.
+## Filing bugs
 
-## File Bugs and Discuss Efforts
+Within a couple of seconds I also see that new tabs don't show adorable kittens. Taking a quick glance at the project's `manifest.json` file reveals the means by which the author intended to accomplish this: `chrome_url_overrides.newtab`. I now have two jobs: first is to file an issue on GitHub, and second is to find an alternative approach to delivering my much-needed kittens.
 
-    - Watch terminals, Brave console, and web content console
-    - Explore extension pages using the `chrome://` protocol
-    - File bugs online at github.com/brave/browser-laptop/issues
-    - Discuss this process and more at community.brave.com
+I can tell from the manifest.json file that my goal is to see the `public\index.html` file. I can use the `chrome-extension://` protocol in Brave to access these files. Using the ID found in `about:extensions`, I find that the kittens have been waiting for me all along at _[chrome-extension://fiiifhpa…bcmppmgc/public/index.html](chrome-extension://fiiifhpagigdpbnjaphepnmfbcmppmgc/public/index.html)_. Within a few seconds, I have them set as my homepage in _Settings_.
+
+![Setting your homepage in Brave](media/brave-homepage.png)
+
+The last step of this journey is to _use the extension_, and file issues for any broken behavior. This will help the Brave team address gaps in our API support, and more rapidly adopt the features needed for other extensions.
+
+## Finding Assistance
+
+This walk-through is intentionally superficial. You may encounter issues that were not thoroughly covered by this document. If you find yourself needing assistance, please consider joining http://community.brave.com. You may also [reach out to me on Twitter](https://twitter.com/bravesampson) and I'll help you find answers.

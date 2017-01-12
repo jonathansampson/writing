@@ -1,4 +1,4 @@
- # Loading Chrome Extensions in Brave
+# Loading Chrome Extensions in Brave
 
 Brave appeared on the scene last year, and was quick to make a name for itself. Out of the box, Brave users enjoy fewer ads and trackers online. Brave also includes safety benefits like the prevention of fingerprinting and malware.
 

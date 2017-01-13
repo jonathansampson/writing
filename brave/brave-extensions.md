@@ -25,7 +25,8 @@ git clone https://github.com/brave/browser-laptop.git
 This step shouldn't take long. Once completed, install the dependencies.
 
 ```
-cd browser-laptop & npm install  
+cd browser-laptop
+npm install  
 ```
 
 This will take a little longer than the cloning process, but shouldn't last for more than a few minutes. With dependencies installed, take a quick break and enjoy the fruits of your labor.
@@ -51,7 +52,8 @@ This command performs a _global_ install of the Chrome Extension Downloader (CED
 Once installed, it's time to get our extension. We'll want to make sure we install the extension into `app\extensions\`:
 
 ```
-cd app\extensions & ced mefhakmgclhhfbdadeojlkbllmecialg  
+cd app\extensions
+ced mefhakmgclhhfbdadeojlkbllmecialg  
 ```
 
 The second command calls CED, asking it to download the Tabby Cat extension via its unique ID. You can find an extension's ID in the address bar when browsing the [Chrome Web Store](https://chrome.google.com/webstore/category/extensions?).

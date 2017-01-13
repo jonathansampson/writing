@@ -1,14 +1,14 @@
 # Loading Chrome Extensions in Brave
 
-Brave appeared on the scene last year, and was quick to make a name for itself. Out of the box, Brave users enjoy fewer ads and trackers online. Brave also includes safety benefits like the prevention of fingerprinting and malware.
+Brave appeared on the scene last year, and was quick to make a name for itself. Out of the box, Brave users enjoy fewer ads and trackers online. Brave also includes safety benefits, like the prevention of fingerprinting and malware.
 
-Like all software, Brave has its limitations. For example, Brave doesn't deliver playful, adorable kittens each time I open a new tab. For that type of functionality, users have to turn to browser extensions. We are fortunate that Brave and Chrome share a common ancestor. As such, they have the capacity to share many of the same extensions.
+Like all software, Brave has its limitations. For example, Brave doesn't deliver playful, adorable kittens each time I open a new tab. For that type of functionality, users have to turn to a browser extension. Fortunately, Brave and Chrome share a common ancestor. As such, they have the capacity to share many of the same extensions.
 
 ## What are our goals?
 
 In this walk-through we're going to clone Brave to our local machine. Next, we will install its dependencies.  And last, we will download a Chrome extension, and load it into Brave.  
 
-My goal is to equip you with the knowledge to explore this process with other extensions. With this knowledge, you can help us make Brave more compatible.
+My goal is to equip you with the information to explore this process with other extensions. With this knowledge, you can help us make Brave more compatible.
 
 ## Cloning Brave and installing dependencies
 

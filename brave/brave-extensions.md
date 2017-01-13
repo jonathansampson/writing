@@ -14,7 +14,7 @@ My goal is to equip you with the information to explore this process with other 
 
 Assuming you already have [git](https://git-scm.com/downloads), [npm and node.js](https://nodejs.org) installed, getting started is straight-forward. We'll start by cloning [Brave's browser-laptop repo](https://github.com/brave/browser-laptop) onto our local machine.
 
-Determine where you'd like to copy the Brave source code on your machine, and launch a command window from that directory. I will be working out of my `c:\` directory.
+Determine where you'd like to copy the Brave source code on your machine, and launch a terminal from that directory. I will be working out of my `c:\` directory.
 
 Continue by running _git clone_ from our target directory:
 
@@ -36,7 +36,7 @@ Take a break; pat yourself on the back. You made it this far!
 
 ## Downloading Chrome Extensions
 
-Now that we have a local copy of Brave's source, and are able to run it, we can continue. If you haven't already, close all instances of Brave, and close both terminal windows. It's time to download an extension!
+Now that we have a local copy of Brave's source, and are able to run it, we can continue. If you haven't already, close all instances of Brave, and close both terminals. It's time to download an extension!
 
 Downloading a Chrome extension often starts by installing the extension in Chrome. This alone requires several steps. Once installed, we have to go digging through our file system and move a handful of files. That's too much work; we'll take a shortcut.
 

@@ -6,7 +6,7 @@ Like all software, Brave has its limitations. For example, Brave doesn't deliver
 
 ## What are our goals?
 
-In this walk-through we're going to clone Brave to our local machine. Next, we will install its dependencies.  And last, we will download a Chrome extension, and load it into Brave.  
+In this walk-through we're going to clone Brave to our local machine, and install its dependencies. Then we will download a Chrome extension, and load it into Brave.  
 
 My goal is to equip you with the information to explore this process with other extensions. With this knowledge, you can help us make Brave more compatible.
 
